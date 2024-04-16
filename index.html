@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="/clicker/script/script.js"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <title>Clicker</title>
+</head>
+<body>
+    <header class="flex justify-end">
+        <!-- Modal -->
+<div id="modal" class="modal fixed w-full h-full top-0 left-0 flex items-center justify-center hidden">
+    <!-- Modal content -->
+    <div class="modal-content bg-white w-1/2 p-8 rounded shadow-lg">
+      <div class="text-center mb-8">
+        <h2 class="text-xl font-bold">Shop</h2>
+        <p>Items</p>
+      </div>
+      <!-- Boutons d'achat -->
+      <div class="grid grid-cols-2 gap-4">
+        <div>
+            <p>Money x10</p>
+            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                Buy
+            </button>
+        </div>
+        
+        <div>
+            <p>Money x10</p>
+            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                Buy
+            </button>
+        </div>
+
+        <div>
+            <p>Money x10</p>
+            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                Buy
+            </button>
+        </div>
+        
+        <div>
+            <p>Money x10</p>
+            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                Buy
+            </button>
+        </div>
+      </div>
+      <!-- Bouton de fermeture de la modal -->
+      <div class="text-right mt-8">
+        <button id="closeModal" class="text-gray-500 hover:text-gray-700 focus:outline-none">
+          close
+        </button>
+      </div>
+    </div>
+  </div>
+        <i id="shop" class="material-icons text-6xl cursor-pointer">local_grocery_store</i>
+    </header>
+    <section class="flex justify-center items-center flex-col text-white">
+        <h2 id="money" class="rounded bg-red-600 mt-6 px-12">0$</h2>
+        <button id="click" class="rounded-full bg-red-600 p-24 mt-24"></button>
+    </section>
+    
+</body>
+</html>
