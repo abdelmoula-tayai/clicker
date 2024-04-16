@@ -18,6 +18,8 @@ function increaseMoney() {
     
 }
 
+setInterval(increaseMoney, 1000);
+
 
 showModal.addEventListener('click', () => {
     modal.classList.remove('hidden');
