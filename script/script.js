@@ -1,7 +1,7 @@
 // Sélection de l'élément HTML affichant l'argent et initialisation avec la valeur sauvegardée ou 0
 const money = document.getElementById('money');
 let savedMoney = localStorage.getItem('money');
-money.innerText = (!isNaN(savedMoney) ? parseInt(savedMoney) : 0) + '$';
+money.innerText = (savedMoney !== null && !isNaN(savedMoney) ? parseInt(savedMoney) : 0) + '$';
 
 // Sélection des éléments HTML pour les interactions avec l'utilisateur
 const click = document.getElementById('click');
