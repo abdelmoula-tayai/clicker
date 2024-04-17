@@ -1,5 +1,9 @@
+// Sélection de l'élément HTML affichant l'argent et initialisation avec la valeur sauvegardée ou 0
 const money = document.getElementById('money');
-money.innerText = parseInt(localStorage.getItem('money')) + '$' || '0$';
+let savedMoney = localStorage.getItem('money');
+money.innerText = (!isNaN(savedMoney) ? parseInt(savedMoney) : 0) + '$';
+
+// Sélection des éléments HTML pour les interactions avec l'utilisateur
 const click = document.getElementById('click');
 const showModal = document.getElementById('shop');
 const modal = document.getElementById('modal');
@@ -8,76 +12,48 @@ const buyX20 = document.getElementById('buyButtonX20');
 const buyX50 = document.getElementById('buyButtonX50');
 const buyX100 = document.getElementById('buyButtonX100');
 
+// Charger moneyIncrement depuis le stockage local ou utiliser la valeur par défaut (1)
+let moneyIncrement = parseInt(localStorage.getItem('moneyIncrement')) || 1;
 
-click.addEventListener('click', increaseMoney);
-
-
-let moneyIncrement = 1;
-
+// Fonction pour incrémenter l'argent
 function increaseMoney() {
     let currentMoney = parseInt(money.innerText);
-    money.innerText = (currentMoney + moneyIncrement) + ' $';
-    localStorage.setItem('money', money.innerText);
-    
+    let newMoney = currentMoney + moneyIncrement;
+    money.innerText = newMoney + ' $';
+    localStorage.setItem('money', newMoney); // Sauvegarde du nouvel argent dans le stockage local
 }
 
+// Écouteur d'événement pour le clic
+click.addEventListener('click', increaseMoney);
+
+// Interval pour incrémenter l'argent automatiquement
 setInterval(increaseMoney, 1000);
 
-
+// Afficher le modal lors du clic sur le bouton
 showModal.addEventListener('click', () => {
     modal.classList.remove('hidden');
 });
 
+// Fermer le modal lors du clic sur le bouton de fermeture
 closeModal.addEventListener("click", () => {
     modal.classList.add('hidden');
 });
 
-
-buyX10.addEventListener('click', () => {
+// Fonction pour acheter un bonus x10, x20, x50 ou x100
+function buyBonus(incrementValue, cost) {
     let currentMoney = parseInt(money.innerText);
-    if (currentMoney >= 100) {
-        money.innerText = (currentMoney - 100) + ' $';
-        moneyIncrement = 10;
-        localStorage.setItem('money', money.innerText);
+    if (currentMoney >= cost) {
+        money.innerText = (currentMoney - cost) + ' $'; // Soustraire le coût de l'article acheté
+        moneyIncrement = incrementValue; // Mettre à jour le montant de l'incrémentation de l'argent
+        localStorage.setItem('moneyIncrement', moneyIncrement); // Sauvegarde de la nouvelle valeur de l'incrémentation dans le stockage local
     } else {
         alert('Vous n\'avez pas assez d\'argent pour acheter cet article');
     }
-    modal.classList.add('hidden');
-});
+    modal.classList.add('hidden'); // Masquer le modal après l'achat
+}
 
-buyX20.addEventListener('click', () => {
-    let currentMoney = parseInt(money.innerText);
-    if (currentMoney >= 500) {
-        money.innerText = (currentMoney - 500) + ' $';
-        moneyIncrement = 20;
-        localStorage.setItem('money', money.innerText);
-    } else {
-        alert('Vous n\'avez pas assez d\'argent pour acheter cet article');
-    }
-    modal.classList.add('hidden');
-});
-
-buyX50.addEventListener('click', () => {
-    let currentMoney = parseInt(money.innerText);
-    if (currentMoney >= 1500) {
-        money.innerText = (currentMoney - 1500) + ' $';
-        moneyIncrement = 50;
-        localStorage.setItem('money', money.innerText);
-    } else {
-        alert('Vous n\'avez pas assez d\'argent pour acheter cet article');
-    }
-    modal.classList.add('hidden');
-});
-
-buyX100.addEventListener('click', () => {
-    let currentMoney = parseInt(money.innerText);
-    if (currentMoney >= 3500) {
-        money.innerText = (currentMoney - 3500) + ' $';
-        moneyIncrement = 100;
-        localStorage.setItem('money', money.innerText);
-    } else {
-        alert('Vous n\'avez pas assez d\'argent pour acheter cet article');
-    }
-    modal.classList.add('hidden');
-});
-
+// Écouteurs d'événement pour acheter différents bonus
+buyX10.addEventListener('click', () => buyBonus(10, 100)); // Achat du bonus x10
+buyX20.addEventListener('click', () => buyBonus(20, 500)); // Achat du bonus x20
+buyX50.addEventListener('click', () => buyBonus(50, 1500)); // Achat du bonus x50
+buyX100.addEventListener('click', () => buyBonus(100, 3500)); // Achat du bonus x100
