@@ -1,5 +1,6 @@
 const money = document.getElementById('money');
-money.innerText = parseInt(localStorage.getItem('money')) + '$' || '0$';
+let savedMoney = localStorage.getItem('money');
+money.innerText = (!isNaN(savedMoney) ? parseInt(savedMoney) : 0) + '$';
 const click = document.getElementById('click');
 const showModal = document.getElementById('shop');
 const modal = document.getElementById('modal');
