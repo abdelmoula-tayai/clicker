@@ -1,6 +1,9 @@
+// Sélection de l'élément HTML affichant l'argent et initialisation avec la valeur sauvegardée ou 0
 const money = document.getElementById('money');
 let savedMoney = localStorage.getItem('money');
 money.innerText = (!isNaN(savedMoney) ? parseInt(savedMoney) : 0) + '$';
+
+// Sélection des éléments HTML pour les interactions avec l'utilisateur
 const click = document.getElementById('click');
 const showModal = document.getElementById('shop');
 const modal = document.getElementById('modal');
@@ -17,7 +20,7 @@ function increaseMoney() {
     let currentMoney = parseInt(money.innerText);
     let newMoney = currentMoney + moneyIncrement;
     money.innerText = newMoney + ' $';
-    localStorage.setItem('money', newMoney);
+    localStorage.setItem('money', newMoney); // Sauvegarde du nouvel argent dans le stockage local
 }
 
 // Écouteur d'événement pour le clic
@@ -26,12 +29,12 @@ click.addEventListener('click', increaseMoney);
 // Interval pour incrémenter l'argent automatiquement
 setInterval(increaseMoney, 1000);
 
-// Afficher le modal
+// Afficher le modal lors du clic sur le bouton
 showModal.addEventListener('click', () => {
     modal.classList.remove('hidden');
 });
 
-// Fermer le modal
+// Fermer le modal lors du clic sur le bouton de fermeture
 closeModal.addEventListener("click", () => {
     modal.classList.add('hidden');
 });
@@ -40,17 +43,17 @@ closeModal.addEventListener("click", () => {
 function buyBonus(incrementValue, cost) {
     let currentMoney = parseInt(money.innerText);
     if (currentMoney >= cost) {
-        money.innerText = (currentMoney - cost) + ' $';
-        moneyIncrement = incrementValue;
-        localStorage.setItem('moneyIncrement', moneyIncrement); // Sauvegarder moneyIncrement dans le stockage local
+        money.innerText = (currentMoney - cost) + ' $'; // Soustraire le coût de l'article acheté
+        moneyIncrement = incrementValue; // Mettre à jour le montant de l'incrémentation de l'argent
+        localStorage.setItem('moneyIncrement', moneyIncrement); // Sauvegarde de la nouvelle valeur de l'incrémentation dans le stockage local
     } else {
         alert('Vous n\'avez pas assez d\'argent pour acheter cet article');
     }
-    modal.classList.add('hidden');
+    modal.classList.add('hidden'); // Masquer le modal après l'achat
 }
 
 // Écouteurs d'événement pour acheter différents bonus
-buyX10.addEventListener('click', () => buyBonus(10, 100));
-buyX20.addEventListener('click', () => buyBonus(20, 500));
-buyX50.addEventListener('click', () => buyBonus(50, 1500));
-buyX100.addEventListener('click', () => buyBonus(100, 3500));
+buyX10.addEventListener('click', () => buyBonus(10, 100)); // Achat du bonus x10
+buyX20.addEventListener('click', () => buyBonus(20, 500)); // Achat du bonus x20
+buyX50.addEventListener('click', () => buyBonus(50, 1500)); // Achat du bonus x50
+buyX100.addEventListener('click', () => buyBonus(100, 3500)); // Achat du bonus x100
